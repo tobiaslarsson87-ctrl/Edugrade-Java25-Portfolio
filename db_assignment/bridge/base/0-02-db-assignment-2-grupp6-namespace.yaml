@@ -1,0 +1,8 @@
+#! 0-02-db-assignment-2-grupp6-namespace.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Namespace
+metadata:
+    name: 02-db-assignment-2-grupp6
+    labels:
+        com.docker.compose.project: 02_db_assignment_2_grupp6

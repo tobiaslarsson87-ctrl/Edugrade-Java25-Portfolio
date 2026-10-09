@@ -1,0 +1,130 @@
+### AUTH ENDPOINTS
+### Register a user
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+  "username": "user",
+  "password": "password"
+}
+
+### Seeded ADMIN login
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "password"
+}
+
+### Created USER login
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "username": "user",
+  "password": "password"
+}
+
+### Tokens - run the login endpoint to get a token for ADMIN - run both the register and login endpoints to get a token for USER
+@admintoken = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIkFETUlOIiwiRkFDVE9SX1BBU1NXT1JEIl0sImlhdCI6MTc3NTY0ODE0MywiZXhwIjoxNzc1NjUxNzQzfQ.Wm4DK-Wqzl7OSGT1FwB8tPpYKJ-GgkgtDUiCJMgwvgecxJPp_eERnEyb_WXC7jQm-E48kuEecrxAu2DWDx6aGQ
+@userToken = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiVVNFUiIsIkZBQ1RPUl9QQVNTV09SRCJdLCJpYXQiOjE3NzU2NDgxNzYsImV4cCI6MTc3NTY1MTc3Nn0.Cae6zeZ3MwL83HmVYv9on2XCpO2v258qGKXmoWFJst9cRzMGOmKNifkVlB2U7wLSvy5VHkSMuETJRlIvSBwgDA
+
+### GET ENDPOINTS
+### GET all classes with PAGINATION
+GET http://localhost:8080/classes?page=0&size=10&sort=name,asc
+
+### GET class 1
+GET http://localhost:8080/classes/1
+
+### GET Spots-remaining on class 1
+GET http://localhost:8080/classes/1/spots-remaining
+
+### GET bookings class 1
+GET http://localhost:8080/classes/1/bookings
+
+### GET instructor = Jonas
+GET http://localhost:8080/classes/search?instructor=Jonas
+
+### POST ENDPOINTS
+### Create a class with ADMIN
+POST http://localhost:8080/classes
+Content-Type: application/json
+Authorization: Bearer {{admintoken}}
+
+{
+  "name": "Cardio",
+  "instructor": "Peter",
+  "dayOfWeek": "Friday",
+  "startTime": "17:30",
+  "durationMinutes": 45,
+  "maxParticipants": 15
+}
+
+### Create a class with USER
+POST http://localhost:8080/classes
+Content-Type: application/json
+Authorization: Bearer {{userToken}}
+
+{
+  "name": "Cardio",
+  "instructor": "Peter",
+  "dayOfWeek": "Friday",
+  "startTime": "17:30",
+  "durationMinutes": 45,
+  "maxParticipants": 15
+}
+
+### Book a class with admin
+POST http://localhost:8080/classes/1/bookings
+Content-Type: application/json
+Authorization: Bearer {{admintoken}}
+
+{
+  "participantName": "Sara Lind",
+  "email": "sara.lind@example.com"
+}
+
+### PUT ENDPOINTS
+### PUT classes ADMIN ONLY
+PUT http://localhost:8080/classes/1
+Authorization: Bearer {{admintoken}}
+Content-Type: application/json
+
+{
+  "name": "Updated Cardio",
+  "instructor": "Peter",
+  "dayOfWeek": "Friday",
+  "startTime": "18:00",
+  "durationMinutes": 60,
+  "maxParticipants": 20
+}
+
+### PUT classes NO TOKEN
+PUT http://localhost:8080/classes/1
+Content-Type: application/json
+
+{
+  "name": "Updated Cardio",
+  "instructor": "Peter",
+  "dayOfWeek": "Friday",
+  "startTime": "18:00",
+  "durationMinutes": 60,
+  "maxParticipants": 20
+}
+
+### DELETE ENDPOINTS
+### DELETE classes ADMIN ONLY
+DELETE http://localhost:8080/classes/1
+Authorization: Bearer {{admintoken}}
+
+### DELETE bookings/6 ADMIN ONLY
+DELETE http://localhost:8080/bookings/6
+Authorization: Bearer {{admintoken}}
+
+### DELETE classes NO TOKEN
+DELETE http://localhost:8080/classes/2
+
+### DELETE bookings/6 NO TOKEN
+DELETE http://localhost:8080/bookings/5
+

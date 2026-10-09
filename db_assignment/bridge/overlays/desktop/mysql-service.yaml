@@ -1,0 +1,11 @@
+# check if there is at least one published port
+
+#! mysql-service.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Service
+metadata:
+    name: mysql-published
+    namespace: 02-db-assignment-2-grupp6
+spec:
+    type: LoadBalancer
